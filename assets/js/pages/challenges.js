@@ -146,15 +146,6 @@ function renderSubmissionResponse(response) {
   result_notification.removeClass();
   result_message.text(result.message);
 
-  const next_btn = $(
-    `<div class='col-md-12 pb-3'><button class='btn btn-info w-100'>Next Challenge</button></div>`
-  ).click(function() {
-    $("#challenge-window").modal("toggle");
-    setTimeout(function() {
-      loadChal(CTFd._internal.challenge.data.next_id);
-    }, 500);
-  });
-
   if (result.status === "authentication_required") {
     window.location =
       CTFd.config.urlRoot +
@@ -202,10 +193,6 @@ function renderSubmissionResponse(response) {
     answer_input.val("");
     answer_input.removeClass("wrong");
     answer_input.addClass("correct");
-
-    if (CTFd._internal.challenge.data.next_id) {
-      $(".submit-row").html(next_btn);
-    }
   } else if (result.status === "already_solved") {
     // Challenge already solved
     result_notification.addClass(
@@ -214,10 +201,6 @@ function renderSubmissionResponse(response) {
     result_notification.slideDown();
 
     answer_input.addClass("correct");
-
-    if (CTFd._internal.challenge.data.next_id) {
-      $(".submit-row").html(next_btn);
-    }
   } else if (result.status === "paused") {
     // CTF is paused
     result_notification.addClass(
@@ -323,13 +306,13 @@ function loadChals() {
 
       if (solves.indexOf(chalinfo.id) == -1) {
         chalbutton = $(
-          "<button class='btn btn-dark challenge-button w-100 text-truncate pt-3 pb-3 mb-2' value='{0}'></button>".format(
+          "<button class='btn btn-dark challenge-button w-100 pt-3 pb-3 mb-2 position-relative xmas-card' value='{0}'></button>".format(
             chalinfo.id
           )
         );
       } else {
         chalbutton = $(
-          "<button class='btn btn-dark challenge-button solved-challenge w-100 text-truncate pt-3 pb-3 mb-2' value='{0}'><i class='fas fa-check corner-button-check'></i></button>".format(
+          "<button class='btn btn-dark challenge-button solved-challenge w-100 pt-3 pb-3 mb-2 position-relative xmas-card' value='{0}'><i class='fas fa-check corner-button-check'></i></button>".format(
             chalinfo.id
           )
         );
@@ -437,11 +420,6 @@ const displayUnlock = id => {
 
 const loadHint = id => {
   CTFd.api.get_hint({ hintId: id }).then(response => {
-    if (!response.success) {
-      let msg = Object.values(response.errors).join("\n");
-      alert(msg);
-      return;
-    }
     if (response.data.content) {
       displayHint(response.data);
       return;

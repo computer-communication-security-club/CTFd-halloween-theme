@@ -18,11 +18,8 @@
 {% endblock %}
 
 {% block content %}
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Setup</h1>
-		</div>
-	</div>
+{% from 'macros/jumbotron.html' import jumbotron %}
+	{{ jumbotron(header='Setup') }}
 	<div class="container">
 		<div class="col-md-8 offset-md-2">
 			{% include "components/errors.html" %}
@@ -247,7 +244,7 @@
 								</div>
 								<div class="col-md-4">
 									<label>UTC Preview</label>
-									{{ form.end(class="form-control", id="end-preview", readonly=True) }}
+									{{ form.start(class="form-control", id="end-preview", readonly=True) }}
 								</div>
 							</div>
 							<small class="form-text text-muted">

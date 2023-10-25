@@ -30,7 +30,7 @@
                     {% endif %}
                 {% endif %}
 
-                {% if Configs.account_visibility != 'admins' and Configs.score_visibility != 'admins' %}
+                {% if Configs.score_visibility != 'admins' %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('scoreboard.listing') }}">Scoreboard</a>
                     </li>
@@ -138,4 +138,5 @@
             </ul>
         </div>
     </div>
+    <div class="xmas-icicles"></div>
 </nav>

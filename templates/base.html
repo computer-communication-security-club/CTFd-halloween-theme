@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="{{ url_for('views.themes', path='css/fonts.css') }}">
 	<link rel="stylesheet" href="{{ url_for('views.themes', path='css/main.css') }}">
 	<link rel="stylesheet" href="{{ url_for('views.themes', path='css/core.css') }}">
+
 	{% block stylesheets %}
 	{% endblock %}
 
@@ -18,10 +19,6 @@
 			'csrfNonce': "{{ Session.nonce }}",
 			'userMode': "{{ Configs.user_mode }}",
 			'userId': {{ Session.id }},
-			'userName': {{ User.name | tojson }},
-			'userEmail': {{ User.email | tojson }},
-			'teamId': {{ Team.id | tojson }}, 
-			'teamName': {{ Team.name | tojson }},
 			'start': {{ Configs.start | tojson }},
 			'end': {{ Configs.end | tojson }},
 			'theme_settings': {{ Configs.theme_settings | tojson }}
@@ -44,6 +41,12 @@
 			</a>
 		</div>
 	</footer>
+
+	<div class="snow">
+		<video autoplay loop muted>
+			<source src="{{ url_for('views.themes', path='videos/snow-background-loop-CiXWHUpoD44.mp4') }}">
+		</video>
+	</div>
 
 	<script defer src="{{ url_for('views.themes', path='js/vendor.bundle.js') }}"></script>
 	<script defer src="{{ url_for('views.themes', path='js/core.js') }}"></script>
